@@ -1,6 +1,7 @@
 package DrawableItmes.Texts;
 
 import DrawableItmes.Drawable;
+import DrawableItmes.DrawableObject;
 
 import java.awt.*;
 import java.util.Random;
@@ -17,7 +18,7 @@ public class Text implements Drawable {
         Random r = new Random();
         String text = "";
         for (int i = 0; i < length; i++) {
-            text = text + ALPHABET.charAt(r.nextInt(ALPHABET.length()));
+            text += ALPHABET.charAt(r.nextInt(ALPHABET.length()));
         }
         return new Text(text);
     }

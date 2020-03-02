@@ -1,4 +1,6 @@
 import DrawableItmes.Drawable;
+import DrawableItmes.DrawableObject;
+import javafx.application.Application;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +15,9 @@ import java.util.Random;
 public class CustomPanel extends JPanel {
 
     public static final int ITEMS_COUNT = 20;
-    private List<Drawable> list;
+
+
+    private List<DrawableObject> list;
 
     public CustomPanel() throws IOException {
         list = Utils.fillList(ITEMS_COUNT);
@@ -49,10 +53,13 @@ public class CustomPanel extends JPanel {
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.BLACK);
-        Random rnd = new Random();
-        for (Drawable item : list) {
-            item.draw((Graphics2D) g, rnd.nextInt(super.getHeight()), rnd.nextInt(super.getWidth()));
+        for (DrawableObject object : list) {
+            object.draw((Graphics2D)g, object.x, object.y);
             g.setColor(Color.BLACK);
         }
     }
-}
+
+
+
+
+    }

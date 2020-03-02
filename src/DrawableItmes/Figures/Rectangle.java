@@ -3,6 +3,7 @@ package DrawableItmes.Figures;
 import java.awt.*;
 import java.util.Random;
 import DrawableItmes.Drawable;
+import DrawableItmes.DrawableObject;
 
 public class Rectangle extends Figure implements Drawable {
     public static final int MAX_SIZE_VALUE = 250;

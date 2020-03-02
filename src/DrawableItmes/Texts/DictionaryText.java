@@ -1,6 +1,7 @@
 package DrawableItmes.Texts;
 
 import DrawableItmes.Drawable;
+import DrawableItmes.DrawableObject;
 
 import java.awt.*;
 import java.io.BufferedReader;
