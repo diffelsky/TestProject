@@ -1,4 +1,6 @@
-package shtait.drawableitems;
+package shtait.core;
+
+import shtait.drawableitems.Drawable;
 
 public class DrawableObject {
     private int x;

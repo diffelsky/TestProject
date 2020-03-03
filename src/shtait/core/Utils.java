@@ -1,5 +1,6 @@
+package shtait.core;
+
 import shtait.drawableitems.CustomPicture;
-import shtait.drawableitems.DrawableObject;
 import shtait.drawableitems.figures.Circle;
 import shtait.drawableitems.figures.Rectangle;
 import shtait.drawableitems.texts.DictionaryText;

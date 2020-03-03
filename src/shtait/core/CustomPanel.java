@@ -1,4 +1,4 @@
-import shtait.drawableitems.DrawableObject;
+package shtait.core;
 
 import javax.swing.*;
 import java.awt.*;
