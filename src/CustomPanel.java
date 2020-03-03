@@ -1,6 +1,4 @@
-import DrawableItmes.Drawable;
 import DrawableItmes.DrawableObject;
-import javafx.application.Application;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,19 +8,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.List;
-import java.util.Random;
 
 public class CustomPanel extends JPanel {
 
     public static final int ITEMS_COUNT = 20;
-
-
     private List<DrawableObject> list;
 
     public CustomPanel() throws IOException {
-        list = Utils.fillList(ITEMS_COUNT);
-
         this.setFocusable(true);
+
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key) {
                 if (key.getKeyCode() == KeyEvent.VK_ESCAPE)
@@ -33,19 +27,11 @@ public class CustomPanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-                    try {
-                        list = Utils.fillList(ITEMS_COUNT);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    generateDrawables();
                 }
                 repaint();
             }
         });
-    }
-
-    public Dimension getPreferredSize() {
-        return new Dimension(640, 480);
     }
 
     @Override
@@ -54,12 +40,16 @@ public class CustomPanel extends JPanel {
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.BLACK);
         for (DrawableObject object : list) {
-            object.draw((Graphics2D)g, object.x, object.y);
+            object.getObject().draw((Graphics2D) g, object.getX(), object.getY());
             g.setColor(Color.BLACK);
         }
     }
 
-
-
-
+    public void generateDrawables() {
+        try {
+            list = Utils.fillList(ITEMS_COUNT, getWidth(), getHeight());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+}

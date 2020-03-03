@@ -1,5 +1,8 @@
+import DrawableItmes.DrawableObject;
+
 import javax.swing.*;
 import java.io.IOException;
+import java.util.List;
 
 /** TODO dev
  */
@@ -25,10 +28,10 @@ public class Main {
     public static void initializeComponents() throws IOException {
         JFrame f = new JFrame("Swing Paint Demo");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.add  (new CustomPanel());
-        f.pack();
+        f.setBounds(64, 64, 640, 480);
+        CustomPanel customPanel = new CustomPanel();
+        f.add(customPanel);
         f.setVisible(true);
-
-
+        customPanel.generateDrawables();
     }
 }
