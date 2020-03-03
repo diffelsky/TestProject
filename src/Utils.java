@@ -1,10 +1,10 @@
-import DrawableItmes.CustomPicture;
-import DrawableItmes.DrawableObject;
-import DrawableItmes.Figures.Circle;
-import DrawableItmes.Figures.Rectangle;
-import DrawableItmes.Texts.DictionaryText;
-import DrawableItmes.Texts.NumberText;
-import DrawableItmes.Texts.Text;
+import shtait.drawableitems.CustomPicture;
+import shtait.drawableitems.DrawableObject;
+import shtait.drawableitems.figures.Circle;
+import shtait.drawableitems.figures.Rectangle;
+import shtait.drawableitems.texts.DictionaryText;
+import shtait.drawableitems.texts.NumberText;
+import shtait.drawableitems.texts.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-import DrawableItmes.DrawableObject;
+import shtait.drawableitems.DrawableObject;
 
 import javax.swing.*;
 import java.awt.*;

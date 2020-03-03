@@ -1,4 +1,4 @@
-package DrawableItmes;
+package shtait.drawableitems;
 
 public class DrawableObject {
     private int x;
@@ -10,13 +10,16 @@ public class DrawableObject {
         this.x = x;
         this.y = y;
     }
-    public int getX(){
+
+    public int getX() {
         return x;
     }
-    public int getY(){
+
+    public int getY() {
         return y;
     }
-    public Drawable getObject(){
+
+    public Drawable getObject() {
         return object;
     }
 }

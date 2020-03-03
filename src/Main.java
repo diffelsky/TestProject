@@ -1,10 +1,8 @@
-import DrawableItmes.DrawableObject;
-
 import javax.swing.*;
 import java.io.IOException;
-import java.util.List;
 
-/** TODO dev
+/**
+ * TODO dev
  */
 
 /** TODO learn

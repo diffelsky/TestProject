@@ -1,4 +1,4 @@
-package DrawableItmes;
+package shtait.drawableitems;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

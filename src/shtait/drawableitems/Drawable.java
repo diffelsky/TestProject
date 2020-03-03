@@ -1,4 +1,4 @@
-package DrawableItmes;
+package shtait.drawableitems;
 
 import java.awt.*;
 

@@ -1,7 +1,6 @@
-package DrawableItmes.Texts;
+package shtait.drawableitems.texts;
 
-import DrawableItmes.Drawable;
-import DrawableItmes.DrawableObject;
+import shtait.drawableitems.Drawable;
 
 import java.awt.*;
 import java.util.Random;
