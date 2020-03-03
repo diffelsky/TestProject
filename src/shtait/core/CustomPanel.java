@@ -18,15 +18,16 @@ public class CustomPanel extends JPanel {
     private List<DrawableObject> list;
     private BufferedImage bufferedImage;
 
-    public CustomPanel() throws IOException {
-        this.setFocusable(true);
+    public CustomPanel() {
 
+        this.setFocusable(true);
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key) {
                 if (key.getKeyCode() == KeyEvent.VK_ESCAPE)
                     System.exit(0);
-                if (key.getKeyCode() == KeyEvent.VK_Q)
+                if (key.getKeyCode() == KeyEvent.VK_Q) {
                     saveImage();
+                }
             }
         });
 
@@ -74,26 +75,15 @@ public class CustomPanel extends JPanel {
     }
 
     public void bufferImage() {
-        BufferedImage br = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
-        Graphics2D gr = (Graphics2D) br.getGraphics();
+        bufferedImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D gr = (Graphics2D) bufferedImage.getGraphics();
         gr.setColor(Color.WHITE);
         gr.fillRect(0, 0, getWidth(), getHeight());
         gr.setColor(Color.BLACK);
         for (DrawableObject object : list) {
-            object.getObject().draw((Graphics2D) gr, object.getX(), object.getY());
+            object.getObject().draw(gr, object.getX(), object.getY());
         }
-        bufferedImage = deepCopy(br);
-
     }
-
-    public BufferedImage deepCopy(BufferedImage source) {
-        BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
-        Graphics g = b.getGraphics();
-        g.drawImage(source, 0, 0, null);
-        g.dispose();
-        return b;
-    }
-
 }
 
 

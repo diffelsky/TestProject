@@ -27,6 +27,5 @@ public class Main {
         f.setVisible(true);
         customPanel.generateDrawables();
         customPanel.bufferImage();
-
     }
 }
