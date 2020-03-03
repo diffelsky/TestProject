@@ -3,9 +3,7 @@ package shtait.core;
 import javax.swing.*;
 import java.io.IOException;
 
-/**
- * TODO dev
- */
+
 
 /** TODO learn
  * Java 8: lambda, method reference, streams
@@ -33,5 +31,6 @@ public class Main {
         f.add(customPanel);
         f.setVisible(true);
         customPanel.generateDrawables();
+
     }
 }
