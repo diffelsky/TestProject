@@ -16,6 +16,7 @@ public class CustomPanel extends JPanel {
 
     public static final int ITEMS_COUNT = 20;
     private List<DrawableObject> list;
+    private BufferedImage bufferedImage;
 
     public CustomPanel() throws IOException {
         this.setFocusable(true);
@@ -33,7 +34,7 @@ public class CustomPanel extends JPanel {
             public void mousePressed(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                     generateDrawables();
-
+                    bufferImage();
                 }
                 repaint();
             }
@@ -42,13 +43,7 @@ public class CustomPanel extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(Color.BLACK);
-        for (DrawableObject object : list) {
-            object.getObject().draw((Graphics2D) g, object.getX(), object.getY());
-            g.setColor(Color.BLACK);
-        }
+        g.drawImage(bufferedImage, 0, 0, null);
     }
 
     public void generateDrawables() {
@@ -61,12 +56,45 @@ public class CustomPanel extends JPanel {
 
     public void saveImage() {
         try {
-            BufferedImage bufferedImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
-            Graphics2D graphics2D = bufferedImage.createGraphics();
-            paint(graphics2D);
-            ImageIO.write(bufferedImage, "jpeg", new File("resources/Screenshots/screen.jpeg"));
+            File files = new File("resources/Screenshots");
+            boolean isSaved = false;
+            for (int i = 0; i < files.length(); i++) {
+                if (!new File("resources/Screenshots/screen" + i + ".png").exists()) {
+                    ImageIO.write(bufferedImage, "png", new File("resources/Screenshots/screen" + i + ".png"));
+                    isSaved = true;
+                    break;
+                }
+            }
+            if (!isSaved) {
+                ImageIO.write(bufferedImage, "png", new File("resources/Screenshots/screen" + (files.length() + 1) + ".png"));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public void bufferImage() {
+        BufferedImage br = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D gr = (Graphics2D) br.getGraphics();
+        gr.setColor(Color.WHITE);
+        gr.fillRect(0, 0, getWidth(), getHeight());
+        gr.setColor(Color.BLACK);
+        for (DrawableObject object : list) {
+            object.getObject().draw((Graphics2D) gr, object.getX(), object.getY());
+        }
+        bufferedImage = deepCopy(br);
+
+    }
+
+    public BufferedImage deepCopy(BufferedImage source) {
+        BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+        Graphics g = b.getGraphics();
+        g.drawImage(source, 0, 0, null);
+        g.dispose();
+        return b;
+    }
+
 }
+
+
+

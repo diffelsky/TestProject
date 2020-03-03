@@ -4,11 +4,6 @@ import javax.swing.*;
 import java.io.IOException;
 
 
-
-/** TODO learn
- * Java 8: lambda, method reference, streams
- */
-
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -31,6 +26,7 @@ public class Main {
         f.add(customPanel);
         f.setVisible(true);
         customPanel.generateDrawables();
+        customPanel.bufferImage();
 
     }
 }

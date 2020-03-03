@@ -37,7 +37,6 @@ public class CustomPicture implements Drawable {
         List<String> pictures = walk.map(Path::toString).filter(f -> f.endsWith(".jpg")).collect(Collectors.toList());
         Random r = new Random();
         return new CustomPicture(readImage(pictures.get(r.nextInt(pictures.size()))));
-
     }
 
     @Override
