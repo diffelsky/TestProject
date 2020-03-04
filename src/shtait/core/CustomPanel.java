@@ -59,7 +59,7 @@ public class CustomPanel extends JPanel {
 
     public void saveImage() {
         try {
-            String fileName = new SimpleDateFormat("'scr-'dd-MM-yyyy-HH;mm;ss;SSS'.png'").format(new Date());
+            String fileName = new SimpleDateFormat("'scr-'yyyy-MM-dd-HH-mm-ss-SSS'.png'").format(new Date());
             ImageIO.write(bufferedImage, "png", new File("resources/Screenshots/" + fileName));
         }
         catch (IOException e) {
