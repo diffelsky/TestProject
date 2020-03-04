@@ -5,3 +5,4 @@ out/*
 .idea/*
 TestProject.iml
 Screenshots/*
+*.png

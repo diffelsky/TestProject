@@ -14,11 +14,6 @@ public class NumberText implements Drawable {
         this.text = text;
     }
 
-    public static NumberText generateNumberText(int bitLength) {
-        Random rnd = new Random();
-        return new NumberText(new BigInteger(bitLength, rnd));
-    }
-
     @Override
     public void draw(Graphics2D gr, int x, int y) {
         gr.setColor(Color.RED);

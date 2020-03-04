@@ -1,5 +1,7 @@
 package shtait.core;
 
+import shtait.drawableitems.Drawable;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -16,13 +18,14 @@ import java.util.List;
 
 public class CustomPanel extends JPanel {
 
-    public static final int ITEMS_COUNT = 20;
-    private List<DrawableObject> list;
+    private List<DrawableObject> objectList;
+    private List<Drawable> drawableList;
     private BufferedImage bufferedImage;
 
-    public CustomPanel() {
+    public CustomPanel() throws IOException {
 
         setFocusable(true);
+        drawableList = Utils.fillDrawableList(Main.ITEMS_COUNT, Utils.getGeneratorList());
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key) {
                 if (key.getKeyCode() == KeyEvent.VK_ESCAPE)
@@ -36,7 +39,12 @@ public class CustomPanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-                    generateDrawables();
+                    try {
+                        generateDrawables();
+                        generateObjects();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     bufferImage();
                 }
                 repaint();
@@ -49,20 +57,19 @@ public class CustomPanel extends JPanel {
         g.drawImage(bufferedImage, 0, 0, null);
     }
 
-    public void generateDrawables() {
-        try {
-            list = Utils.fillList(ITEMS_COUNT, getWidth(), getHeight());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void generateDrawables() throws IOException {
+        drawableList = Utils.fillDrawableList(10, Utils.getGeneratorList());
+    }
+
+    public void generateObjects() throws IOException {
+        objectList = Utils.fillDObjectList(drawableList, getWidth(), getHeight());
     }
 
     public void saveImage() {
         try {
             String fileName = new SimpleDateFormat("'scr-'yyyy-MM-dd-HH-mm-ss-SSS'.png'").format(new Date());
             ImageIO.write(bufferedImage, "png", new File("resources/Screenshots/" + fileName));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -73,9 +80,13 @@ public class CustomPanel extends JPanel {
         gr.setColor(Color.WHITE);
         gr.fillRect(0, 0, getWidth(), getHeight());
         gr.setColor(Color.BLACK);
-        for (DrawableObject object : list) {
+        for (DrawableObject object : objectList) {
             object.getObject().draw(gr, object.getX(), object.getY());
         }
+    }
+
+    public void setDrawableList(List<Drawable> value) {
+        this.drawableList = value;
     }
 }
 
