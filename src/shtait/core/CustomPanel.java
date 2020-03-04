@@ -22,11 +22,10 @@ public class CustomPanel extends JPanel {
     private List<Drawable> drawableList;
     private BufferedImage bufferedImage;
 
-    public CustomPanel() throws IOException {
+    public CustomPanel() {
 
         setFocusable(true);
-        drawableList = Utils.fillDrawableList(Main.ITEMS_COUNT, Utils.getGeneratorList());
-        addKeyListener(new KeyAdapter() {
+               addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key) {
                 if (key.getKeyCode() == KeyEvent.VK_ESCAPE)
                     System.exit(0);
@@ -61,7 +60,7 @@ public class CustomPanel extends JPanel {
         drawableList = Utils.fillDrawableList(10, Utils.getGeneratorList());
     }
 
-    public void generateObjects() throws IOException {
+    public void generateObjects() {
         objectList = Utils.fillDObjectList(drawableList, getWidth(), getHeight());
     }
 

@@ -19,7 +19,7 @@ public class Utils {
         return itemList;
     }
 
-    public static List<DrawableObject> fillDObjectList(List<Drawable> list, int width, int height) throws IOException {
+    public static List<DrawableObject> fillDObjectList(List<Drawable> list, int width, int height) {
         Random position = new Random();
         List<DrawableObject> objectList = new ArrayList<>();
         Random r = new Random();
