@@ -10,6 +10,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class CustomPanel extends JPanel {
@@ -20,7 +22,7 @@ public class CustomPanel extends JPanel {
 
     public CustomPanel() {
 
-        this.setFocusable(true);
+        setFocusable(true);
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key) {
                 if (key.getKeyCode() == KeyEvent.VK_ESCAPE)
@@ -57,19 +59,10 @@ public class CustomPanel extends JPanel {
 
     public void saveImage() {
         try {
-            File files = new File("resources/Screenshots");
-            boolean isSaved = false;
-            for (int i = 0; i < files.length(); i++) {
-                if (!new File("resources/Screenshots/screen" + i + ".png").exists()) {
-                    ImageIO.write(bufferedImage, "png", new File("resources/Screenshots/screen" + i + ".png"));
-                    isSaved = true;
-                    break;
-                }
-            }
-            if (!isSaved) {
-                ImageIO.write(bufferedImage, "png", new File("resources/Screenshots/screen" + (files.length() + 1) + ".png"));
-            }
-        } catch (IOException e) {
+            String fileName = new SimpleDateFormat("'scr-'dd-MM-yyyy-HH;mm;ss;SSS'.png'").format(new Date());
+            ImageIO.write(bufferedImage, "png", new File("resources/Screenshots/" + fileName));
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
