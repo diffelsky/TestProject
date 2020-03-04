@@ -4,5 +4,4 @@
 out/*
 .idea/*
 TestProject.iml
-Screenshots/*
-*.png
+resources/Screenshots/*

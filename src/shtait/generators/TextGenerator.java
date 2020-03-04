@@ -7,13 +7,22 @@ import java.io.IOException;
 import java.util.Random;
 
 public class TextGenerator implements Generator {
+
+    public static final String TEXT_ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-";
+
+    private int length;
+
+    public TextGenerator(int length) {
+        this.length = length;
+    }
+
     @Override
     public Drawable generate() throws IOException {
         Random r = new Random();
-        String text = "";
-        for (int i = 0; i < TEXT_LENGTH; i++) {
-            text += TEXT_ALPHABET.charAt(r.nextInt(TEXT_ALPHABET.length()));
+        StringBuilder text = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            text.append(TEXT_ALPHABET.charAt(r.nextInt(TEXT_ALPHABET.length())));
         }
-        return new Text(text);
+        return new Text(text.toString());
     }
 }

@@ -4,7 +4,6 @@ import shtait.drawableitems.Drawable;
 
 import java.awt.*;
 import java.math.BigInteger;
-import java.util.Random;
 
 public class NumberText implements Drawable {
 

@@ -1,8 +1,8 @@
 package shtait.drawableitems.figures;
 
-import java.awt.*;
-import java.util.Random;
 import shtait.drawableitems.Drawable;
+
+import java.awt.*;
 
 public class Rectangle extends Figure implements Drawable {
     private int width;

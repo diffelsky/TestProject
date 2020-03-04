@@ -1,8 +1,8 @@
 package shtait.drawableitems.figures;
+
 import shtait.drawableitems.Drawable;
 
 import java.awt.*;
-import java.util.Random;
 
 public class Circle extends Figure implements Drawable {
 

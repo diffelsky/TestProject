@@ -13,10 +13,16 @@ import java.util.Random;
 
 public class DictionaryTextGenerator implements Generator {
 
+    private String path;
+
+    public DictionaryTextGenerator(String path) {
+        this.path = path;
+    }
+
     @Override
     public Drawable generate() throws IOException {
 
-        File file = new File(DICTIONARYTEXT_PATH_TO_DICTIONARY);
+        File file = new File(path);
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
         String line;

@@ -16,10 +16,16 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CustomPictureGenerator implements Generator {
-    @Override
 
+    private String path;
+
+    public CustomPictureGenerator(String path) {
+        this.path = path;
+    }
+
+    @Override
     public Drawable generate() throws IOException {
-        Stream<Path> walk = Files.walk(Paths.get(CUSTOMPICTURES_PATH_TO_PICTURES));
+        Stream<Path> walk = Files.walk(Paths.get(path));
         List<String> pictures = walk.map(Path::toString).filter(f -> f.endsWith(".jpg")).collect(Collectors.toList());
         Random r = new Random();
         BufferedImage img = null;

@@ -5,6 +5,7 @@ import shtait.drawableitems.Drawable;
 import java.awt.*;
 
 public class DictionaryText implements Drawable {
+
     private String text;
 
     public DictionaryText(String text) {

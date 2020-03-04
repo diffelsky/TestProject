@@ -6,9 +6,14 @@ import java.util.Random;
 
 public class RectangleGenerator implements Generator {
 
-    @Override
+    private int size;
+
+    public RectangleGenerator(int size) {
+        this.size = size;
+    }
+
     public Rectangle generate() {
         Random r = new Random();
-        return new Rectangle(r.nextInt(RECTANGLE_MAX_SIZE_VALUE) + 1, r.nextInt(RECTANGLE_MAX_SIZE_VALUE) + 1);
+        return new Rectangle(r.nextInt(size) + 1, r.nextInt(size) + 1);
     }
 }

@@ -25,7 +25,7 @@ public class CustomPanel extends JPanel {
     public CustomPanel() {
 
         setFocusable(true);
-               addKeyListener(new KeyAdapter() {
+        addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key) {
                 if (key.getKeyCode() == KeyEvent.VK_ESCAPE)
                     System.exit(0);
@@ -39,7 +39,8 @@ public class CustomPanel extends JPanel {
             public void mousePressed(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                     try {
-                        generateDrawables();
+                        Main.generateDrawables();
+                        setDrawableList(Main.drawableList);
                         generateObjects();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -54,10 +55,6 @@ public class CustomPanel extends JPanel {
     @Override
     public void paint(Graphics g) {
         g.drawImage(bufferedImage, 0, 0, null);
-    }
-
-    public void generateDrawables() throws IOException {
-        drawableList = Utils.fillDrawableList(10, Utils.getGeneratorList());
     }
 
     public void generateObjects() {
