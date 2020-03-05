@@ -1,6 +1,8 @@
 package shtait.core;
 
 import shtait.drawableitems.Drawable;
+import shtait.generators.Generator;
+import shtait.services.GeneratorService;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,14 +20,15 @@ import java.util.List;
 
 public class CustomPanel extends JPanel {
 
-    private List<DrawableObject> objectList;
+
     private List<Drawable> drawableList;
     private BufferedImage bufferedImage;
+    private List<DrawableObject> drawableObjects;
 
-    public CustomPanel() {
+    public CustomPanel(GeneratorService gr) {
 
         setFocusable(true);
-        addKeyListener(new KeyAdapter() {
+               addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key) {
                 if (key.getKeyCode() == KeyEvent.VK_ESCAPE)
                     System.exit(0);
@@ -39,12 +42,11 @@ public class CustomPanel extends JPanel {
             public void mousePressed(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                     try {
-                        Main.generateDrawables();
-                        setDrawableList(Main.drawableList);
-                        generateObjects();
+                        setDrawableList(gr.generateDrawables(20));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    setDrawableObjects(gr.generateObjects(getWidth(),getHeight()));
                     bufferImage();
                 }
                 repaint();
@@ -55,10 +57,6 @@ public class CustomPanel extends JPanel {
     @Override
     public void paint(Graphics g) {
         g.drawImage(bufferedImage, 0, 0, null);
-    }
-
-    public void generateObjects() {
-        objectList = Utils.fillDObjectList(drawableList, getWidth(), getHeight());
     }
 
     public void saveImage() {
@@ -76,7 +74,7 @@ public class CustomPanel extends JPanel {
         gr.setColor(Color.WHITE);
         gr.fillRect(0, 0, getWidth(), getHeight());
         gr.setColor(Color.BLACK);
-        for (DrawableObject object : objectList) {
+        for (DrawableObject object : drawableObjects) {
             object.getObject().draw(gr, object.getX(), object.getY());
         }
     }
@@ -84,6 +82,8 @@ public class CustomPanel extends JPanel {
     public void setDrawableList(List<Drawable> value) {
         this.drawableList = value;
     }
+
+    public void setDrawableObjects(List<DrawableObject> value){this.drawableObjects = value;}
 }
 
 

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -25,8 +26,9 @@ public class CustomPictureGenerator implements Generator {
 
     @Override
     public Drawable generate() throws IOException {
-        Stream<Path> walk = Files.walk(Paths.get(path));
-        List<String> pictures = walk.map(Path::toString).filter(f -> f.endsWith(".jpg")).collect(Collectors.toList());
+        List<String> pictures = new ArrayList<>();
+        pictures = getFilesWithExt("jpg");
+        pictures.addAll(getFilesWithExt("png"));
         Random r = new Random();
         BufferedImage img = null;
         try {
@@ -36,5 +38,11 @@ public class CustomPictureGenerator implements Generator {
             e.printStackTrace();
         }
         return new CustomPicture(img);
+    }
+
+    private List<String> getFilesWithExt(String extension) throws IOException {
+        Stream<Path> walk = Files.walk(Paths.get(path));
+        List<String> pictures = walk.map(Path::toString).filter(f -> f.endsWith(extension)).collect(Collectors.toList());
+        return pictures;
     }
 }

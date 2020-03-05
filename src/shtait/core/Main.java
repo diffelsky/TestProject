@@ -1,16 +1,16 @@
 package shtait.core;
 
 import shtait.drawableitems.Drawable;
+import shtait.generators.*;
+import shtait.services.GeneratorService;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class Main {
-
-    public static final int ITEMS_COUNT = 20;
-    public static List<Drawable> drawableList;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -26,20 +26,31 @@ public class Main {
     }
 
     public static void initializeComponents() throws IOException {
-        generateDrawables();
+        GeneratorService gs = new GeneratorService();
+        gs.setGeneratorList(createGeneratorList());
+        List<Drawable> drawables = gs.generateDrawables(20);
+
+
         JFrame f = new JFrame("Swing Paint Demo");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setBounds(64, 64, 640, 480);
-        CustomPanel customPanel = new CustomPanel();
-        customPanel.setDrawableList(drawableList);
+        CustomPanel customPanel = new CustomPanel(gs);
+        customPanel.setDrawableList(drawables);
         f.add(customPanel);
         f.setVisible(true);
-        customPanel.generateObjects();
+        customPanel.setDrawableObjects(gs.generateObjects(customPanel.getWidth(),customPanel.getHeight()));
         customPanel.bufferImage();
     }
 
-    public static void generateDrawables() throws IOException {
-        drawableList = Utils.fillDrawableList(ITEMS_COUNT, Utils.getGeneratorList());
-    }
 
+    public static List<Generator> createGeneratorList() {
+        List<Generator> generators = new ArrayList<>();
+        generators.add(new CircleGenerator(10, 100));
+        generators.add(new RectangleGenerator(100, 110, 200, 210));
+        generators.add(new DictionaryTextGenerator("resources/Dictionaries/dict.txt"));
+        generators.add(new NumberTextGenerator(20));
+        generators.add(new TextGenerator(20));
+        generators.add(new CustomPictureGenerator("resources/Pictures"));
+        return generators;
+    }
 }

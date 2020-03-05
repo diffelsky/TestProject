@@ -6,15 +6,17 @@ import java.util.Random;
 
 public class CircleGenerator implements Generator {
 
-    private int radius;
+    private int minRadius;
+    private int maxRadius;
 
-    public CircleGenerator(int radius) {
-        this.radius = radius;
+    public CircleGenerator(int minRadius, int maxRadius) {
+        this.minRadius = minRadius;
+        this.maxRadius = maxRadius;
     }
 
     @Override
     public Circle generate() {
         Random r = new Random();
-        return new Circle(r.nextInt(radius) + 1);
+        return new Circle(r.nextInt(maxRadius - minRadius) + minRadius);
     }
 }

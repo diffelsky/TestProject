@@ -28,15 +28,4 @@ public class Utils {
         }
         return objectList;
     }
-
-    public static List<Generator> getGeneratorList() {
-        List<Generator> generators = new ArrayList<>();
-        generators.add(new CircleGenerator(1));
-        generators.add(new RectangleGenerator(100));
-        generators.add(new DictionaryTextGenerator("resources/Dictionaries/dict.txt"));
-        generators.add(new NumberTextGenerator(100));
-        generators.add(new TextGenerator(20));
-        generators.add(new CustomPictureGenerator("resources/Pictures"));
-        return generators;
-    }
 }
