@@ -26,22 +26,19 @@ public class Main {
     }
 
     public static void initializeComponents() throws IOException {
-        GeneratorService gs = new GeneratorService();
-        gs.setGeneratorList(createGeneratorList());
-        List<Drawable> drawables = gs.generateDrawables(20);
-
-
+        GeneratorService generatorService = new GeneratorService();
+        generatorService.setGeneratorList(createGeneratorList());
+        List<Drawable> drawables = generatorService.generateDrawables(GeneratorService.ITEM_COUNT);
         JFrame f = new JFrame("Swing Paint Demo");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setBounds(64, 64, 640, 480);
-        CustomPanel customPanel = new CustomPanel(gs);
+        CustomPanel customPanel = new CustomPanel(generatorService);
         customPanel.setDrawableList(drawables);
         f.add(customPanel);
         f.setVisible(true);
-        customPanel.setDrawableObjects(gs.generateObjects(customPanel.getWidth(),customPanel.getHeight()));
+        customPanel.setDrawableObjects(generatorService.generateObjects(drawables, customPanel.getWidth(), customPanel.getHeight()));
         customPanel.bufferImage();
     }
-
 
     public static List<Generator> createGeneratorList() {
         List<Generator> generators = new ArrayList<>();

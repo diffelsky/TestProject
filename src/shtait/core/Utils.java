@@ -1,7 +1,7 @@
 package shtait.core;
 
 import shtait.drawableitems.Drawable;
-import shtait.generators.*;
+import shtait.generators.Generator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class Utils {
         return itemList;
     }
 
-    public static List<DrawableObject> fillDObjectList(List<Drawable> list, int width, int height) {
+    public static List<DrawableObject> fillDrawableObjectList(List<Drawable> list, int width, int height) {
         Random position = new Random();
         List<DrawableObject> objectList = new ArrayList<>();
         Random r = new Random();

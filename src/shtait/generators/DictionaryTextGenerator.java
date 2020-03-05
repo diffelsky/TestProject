@@ -21,7 +21,6 @@ public class DictionaryTextGenerator implements Generator {
 
     @Override
     public Drawable generate() throws IOException {
-
         File file = new File(path);
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);

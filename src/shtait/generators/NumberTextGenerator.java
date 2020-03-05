@@ -19,7 +19,7 @@ public class NumberTextGenerator implements Generator {
         Random rnd = new Random();
         StringBuilder stringInteger = new StringBuilder();
         for (int i = 0; i < length; i++)
-            stringInteger.append(rnd.nextInt(9));
+            stringInteger.append(rnd.nextInt(10));
         return new NumberText(new BigInteger(stringInteger.toString()));
     }
 }

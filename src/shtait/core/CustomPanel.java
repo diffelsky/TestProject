@@ -1,7 +1,6 @@
 package shtait.core;
 
 import shtait.drawableitems.Drawable;
-import shtait.generators.Generator;
 import shtait.services.GeneratorService;
 
 import javax.imageio.ImageIO;
@@ -20,15 +19,14 @@ import java.util.List;
 
 public class CustomPanel extends JPanel {
 
-
     private List<Drawable> drawableList;
     private BufferedImage bufferedImage;
     private List<DrawableObject> drawableObjects;
 
-    public CustomPanel(GeneratorService gr) {
+    public CustomPanel(GeneratorService generatorService) {
 
         setFocusable(true);
-               addKeyListener(new KeyAdapter() {
+        addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key) {
                 if (key.getKeyCode() == KeyEvent.VK_ESCAPE)
                     System.exit(0);
@@ -42,11 +40,11 @@ public class CustomPanel extends JPanel {
             public void mousePressed(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                     try {
-                        setDrawableList(gr.generateDrawables(20));
+                        setDrawableList(generatorService.generateDrawables(GeneratorService.ITEM_COUNT));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    setDrawableObjects(gr.generateObjects(getWidth(),getHeight()));
+                    setDrawableObjects(generatorService.generateObjects(drawableList, getWidth(), getHeight()));
                     bufferImage();
                 }
                 repaint();
@@ -83,7 +81,9 @@ public class CustomPanel extends JPanel {
         this.drawableList = value;
     }
 
-    public void setDrawableObjects(List<DrawableObject> value){this.drawableObjects = value;}
+    public void setDrawableObjects(List<DrawableObject> value) {
+        this.drawableObjects = value;
+    }
 }
 
 

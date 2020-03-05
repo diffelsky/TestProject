@@ -9,22 +9,20 @@ import java.io.IOException;
 import java.util.List;
 
 public class GeneratorService {
-    private List<Drawable> drawables;
+    public static final int ITEM_COUNT = 20;
     private List<Generator> generatorList;
-    private List<DrawableObject> objectList;
-
 
     public void setGeneratorList(List<Generator> value) {
         this.generatorList = value;
     }
 
     public List<Drawable> generateDrawables(int count) throws IOException {
-        drawables = Utils.fillDrawableList(count, generatorList);
+        List<Drawable> drawables = Utils.fillDrawableList(count, generatorList);
         return drawables;
     }
 
-    public List<DrawableObject> generateObjects(int width, int height) {
-        objectList = Utils.fillDObjectList(drawables, width, height);
+    public List<DrawableObject> generateObjects(List<Drawable> drawables, int width, int height) {
+        List<DrawableObject> objectList = Utils.fillDrawableObjectList(drawables, width, height);
         return objectList;
     }
 }
