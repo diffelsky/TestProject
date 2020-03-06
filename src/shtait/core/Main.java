@@ -1,6 +1,5 @@
 package shtait.core;
 
-import shtait.drawableitems.Drawable;
 import shtait.generators.*;
 import shtait.services.GeneratorService;
 
@@ -28,15 +27,13 @@ public class Main {
     public static void initializeComponents() throws IOException {
         GeneratorService generatorService = new GeneratorService();
         generatorService.setGeneratorList(createGeneratorList());
-        List<Drawable> drawables = generatorService.generateDrawables(GeneratorService.ITEM_COUNT);
         JFrame f = new JFrame("Swing Paint Demo");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setBounds(64, 64, 640, 480);
         CustomPanel customPanel = new CustomPanel(generatorService);
-        customPanel.setDrawableList(drawables);
         f.add(customPanel);
         f.setVisible(true);
-        customPanel.setDrawableObjects(generatorService.generateObjects(drawables, customPanel.getWidth(), customPanel.getHeight()));
+        customPanel.setDrawableObjects(generatorService.generateObjects(customPanel.getDrawableList(), customPanel.getWidth(), customPanel.getHeight()));
         customPanel.bufferImage();
     }
 
@@ -51,3 +48,4 @@ public class Main {
         return generators;
     }
 }
+

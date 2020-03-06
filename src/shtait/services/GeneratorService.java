@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class GeneratorService {
-    public static final int ITEM_COUNT = 20;
+
     private List<Generator> generatorList;
 
     public void setGeneratorList(List<Generator> value) {
@@ -17,12 +17,10 @@ public class GeneratorService {
     }
 
     public List<Drawable> generateDrawables(int count) throws IOException {
-        List<Drawable> drawables = Utils.fillDrawableList(count, generatorList);
-        return drawables;
+        return Utils.fillDrawableList(count, generatorList);
     }
 
     public List<DrawableObject> generateObjects(List<Drawable> drawables, int width, int height) {
-        List<DrawableObject> objectList = Utils.fillDrawableObjectList(drawables, width, height);
-        return objectList;
+        return Utils.fillDrawableObjectList(drawables, width, height);
     }
 }

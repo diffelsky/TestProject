@@ -19,12 +19,14 @@ import java.util.List;
 
 public class CustomPanel extends JPanel {
 
+    public static final int ITEM_COUNT = 20;
+
     private List<Drawable> drawableList;
     private BufferedImage bufferedImage;
     private List<DrawableObject> drawableObjects;
 
-    public CustomPanel(GeneratorService generatorService) {
-
+    public CustomPanel(GeneratorService generatorService) throws IOException {
+        drawableList = generatorService.generateDrawables(CustomPanel.ITEM_COUNT);
         setFocusable(true);
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key) {
@@ -40,7 +42,7 @@ public class CustomPanel extends JPanel {
             public void mousePressed(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                     try {
-                        setDrawableList(generatorService.generateDrawables(GeneratorService.ITEM_COUNT));
+                        setDrawableList(generatorService.generateDrawables(ITEM_COUNT));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -77,12 +79,16 @@ public class CustomPanel extends JPanel {
         }
     }
 
-    public void setDrawableList(List<Drawable> value) {
-        this.drawableList = value;
-    }
-
     public void setDrawableObjects(List<DrawableObject> value) {
         this.drawableObjects = value;
+    }
+
+    public List<Drawable> getDrawableList() {
+        return drawableList;
+    }
+
+    public void setDrawableList(List<Drawable> value) {
+        this.drawableList = value;
     }
 }
 
