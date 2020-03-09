@@ -23,7 +23,7 @@ public class DictionaryTextGenerator implements Generator {
         File file = new File(path);
         String line;
         List<String> output = new ArrayList<>();
-        FileReader fr = null;
+        FileReader fr;
         DictionaryText dt = new DictionaryText("");
         try {
             fr = new FileReader(file);
