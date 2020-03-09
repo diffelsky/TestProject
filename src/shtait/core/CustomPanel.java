@@ -24,29 +24,24 @@ public class CustomPanel extends JPanel {
     private List<Drawable> drawableList;
     private BufferedImage bufferedImage;
     private List<DrawableObject> drawableObjects;
+    private GeneratorService generatorService;
 
-    public CustomPanel(GeneratorService generatorService) throws IOException {
-        drawableList = generatorService.generateDrawables(CustomPanel.ITEM_COUNT);
+    public CustomPanel(GeneratorService generatorService) {
+        this.generatorService = generatorService;
         setFocusable(true);
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key) {
                 if (key.getKeyCode() == KeyEvent.VK_ESCAPE)
                     System.exit(0);
-                if (key.getKeyCode() == KeyEvent.VK_Q) {
+                if (key.getKeyCode() == KeyEvent.VK_Q)
                     saveImage();
-                }
             }
         });
 
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-                    try {
-                        setDrawableList(generatorService.generateDrawables(ITEM_COUNT));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    setDrawableObjects(generatorService.generateObjects(drawableList, getWidth(), getHeight()));
+                    init();
                     bufferImage();
                 }
                 repaint();
@@ -79,16 +74,9 @@ public class CustomPanel extends JPanel {
         }
     }
 
-    public void setDrawableObjects(List<DrawableObject> value) {
-        this.drawableObjects = value;
-    }
-
-    public List<Drawable> getDrawableList() {
-        return drawableList;
-    }
-
-    public void setDrawableList(List<Drawable> value) {
-        this.drawableList = value;
+    public void init() {
+        drawableList = generatorService.generateDrawables(CustomPanel.ITEM_COUNT);
+        drawableObjects = generatorService.generateObjects(drawableList, getWidth(), getHeight());
     }
 }
 

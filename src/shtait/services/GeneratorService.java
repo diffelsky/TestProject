@@ -5,7 +5,6 @@ import shtait.core.Utils;
 import shtait.drawableitems.Drawable;
 import shtait.generators.Generator;
 
-import java.io.IOException;
 import java.util.List;
 
 public class GeneratorService {
@@ -16,7 +15,7 @@ public class GeneratorService {
         this.generatorList = value;
     }
 
-    public List<Drawable> generateDrawables(int count) throws IOException {
+    public List<Drawable> generateDrawables(int count) {
         return Utils.fillDrawableList(count, generatorList);
     }
 

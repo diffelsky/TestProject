@@ -33,7 +33,7 @@ public class Main {
         CustomPanel customPanel = new CustomPanel(generatorService);
         f.add(customPanel);
         f.setVisible(true);
-        customPanel.setDrawableObjects(generatorService.generateObjects(customPanel.getDrawableList(), customPanel.getWidth(), customPanel.getHeight()));
+        customPanel.init();
         customPanel.bufferImage();
     }
 

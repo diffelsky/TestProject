@@ -3,14 +3,13 @@ package shtait.core;
 import shtait.drawableitems.Drawable;
 import shtait.generators.Generator;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Utils {
 
-    public static List<Drawable> fillDrawableList(int count, List<Generator> generators) throws IOException {
+    public static List<Drawable> fillDrawableList(int count, List<Generator> generators) {
         List<Drawable> itemList = new ArrayList<>();
         Random r = new Random();
         for (int i = 0; i < count; i++) {

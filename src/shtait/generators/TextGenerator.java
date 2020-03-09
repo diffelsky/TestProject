@@ -3,7 +3,6 @@ package shtait.generators;
 import shtait.drawableitems.Drawable;
 import shtait.drawableitems.texts.Text;
 
-import java.io.IOException;
 import java.util.Random;
 
 public class TextGenerator implements Generator {
@@ -17,7 +16,7 @@ public class TextGenerator implements Generator {
     }
 
     @Override
-    public Drawable generate() throws IOException {
+    public Drawable generate() {
         Random r = new Random();
         StringBuilder text = new StringBuilder();
         for (int i = 0; i < length; i++) {
