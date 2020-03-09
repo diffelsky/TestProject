@@ -3,23 +3,13 @@ package shtait.drawableitems.texts;
 import shtait.drawableitems.Drawable;
 
 import java.awt.*;
-import java.util.Random;
 
 public class Text implements Drawable {
-    private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-";
+
     private String text;
 
     public Text(String text) {
         this.text = text;
-    }
-
-    public static Text generateText(int length) {
-        Random r = new Random();
-        String text = "";
-        for (int i = 0; i < length; i++) {
-            text += ALPHABET.charAt(r.nextInt(ALPHABET.length()));
-        }
-        return new Text(text);
     }
 
     @Override

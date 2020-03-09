@@ -4,7 +4,6 @@ import shtait.drawableitems.Drawable;
 
 import java.awt.*;
 import java.math.BigInteger;
-import java.util.Random;
 
 public class NumberText implements Drawable {
 
@@ -12,11 +11,6 @@ public class NumberText implements Drawable {
 
     public NumberText(BigInteger text) {
         this.text = text;
-    }
-
-    public static NumberText generateNumberText(int bitLength) {
-        Random rnd = new Random();
-        return new NumberText(new BigInteger(bitLength, rnd));
     }
 
     @Override
