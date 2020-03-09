@@ -67,11 +67,11 @@ public class CustomPanel extends JPanel {
         gr.setColor(Color.WHITE);
         gr.fillRect(0, 0, getWidth(), getHeight());
         gr.setColor(Color.BLACK);
-        try {
+        if (drawableObjects != null && !drawableObjects.isEmpty()) {
             for (DrawableObject object : drawableObjects) {
                 object.getObject().draw(gr, object.getX(), object.getY());
             }
-        } catch (NullPointerException e) {
+        } else {
             this.repaint(0, 0, getWidth(), getHeight());
         }
     }
@@ -84,6 +84,3 @@ public class CustomPanel extends JPanel {
         }
     }
 }
-
-
-
