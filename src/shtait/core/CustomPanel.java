@@ -1,6 +1,5 @@
 package shtait.core;
 
-import shtait.drawableitems.Drawable;
 import shtait.services.GeneratorService;
 
 import javax.imageio.ImageIO;
@@ -21,7 +20,6 @@ public class CustomPanel extends JPanel {
 
     public static final int ITEM_COUNT = 20;
 
-    private List<Drawable> drawableList;
     private BufferedImage bufferedImage;
     private List<DrawableObject> drawableObjects;
     private GeneratorService generatorService;
@@ -69,14 +67,21 @@ public class CustomPanel extends JPanel {
         gr.setColor(Color.WHITE);
         gr.fillRect(0, 0, getWidth(), getHeight());
         gr.setColor(Color.BLACK);
-        for (DrawableObject object : drawableObjects) {
-            object.getObject().draw(gr, object.getX(), object.getY());
+        try {
+            for (DrawableObject object : drawableObjects) {
+                object.getObject().draw(gr, object.getX(), object.getY());
+            }
+        } catch (NullPointerException e) {
+            this.repaint(0, 0, getWidth(), getHeight());
         }
     }
 
     public void init() {
-        drawableList = generatorService.generateDrawables(CustomPanel.ITEM_COUNT);
-        drawableObjects = generatorService.generateObjects(drawableList, getWidth(), getHeight());
+        try {
+            drawableObjects = generatorService.generateObjects(generatorService.generateDrawables(CustomPanel.ITEM_COUNT), getWidth(), getHeight());
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, "ERROR!\n" + e.toString(), "HALT!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
 

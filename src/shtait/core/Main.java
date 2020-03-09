@@ -4,7 +4,6 @@ import shtait.generators.*;
 import shtait.services.GeneratorService;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,16 +13,12 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                try {
-                    initializeComponents();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                initializeComponents();
             }
         });
     }
 
-    public static void initializeComponents() throws IOException {
+    public static void initializeComponents() {
         GeneratorService generatorService = new GeneratorService();
         generatorService.setGeneratorList(createGeneratorList());
         JFrame f = new JFrame("Swing Paint Demo");
