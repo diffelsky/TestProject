@@ -1,7 +1,6 @@
 package shtait.properties;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -44,40 +43,52 @@ public class ConvertedProperties {
     private int frameBoundsHeight;
 
     public void getPropValues(String path) {
+        setDefaultProperties();
         Properties properties = new Properties();
         InputStream inputStream = null;
         try {
             inputStream = new FileInputStream(path);
             if (inputStream != null) {
                 properties.load(inputStream);
-            } else {
-                throw new FileNotFoundException("property file  not found in the classpath");
             }
-            imageExtensions = Arrays.asList(properties.getProperty("testapp.imageExtensions",DEFAULT_IMAGE_EXTENSIONS).split(" "));
-            minCircleRadius = Integer.parseInt(properties.getProperty("testapp.minCircleRadius",DEFAULT_MIN_CIRCLE_RADIUS));
-            maxCircleRadius = Integer.parseInt(properties.getProperty("testapp.maxCircleRadius",DEFAULT_MAX_CIRCLE_RADIUS));
-            minRectangleWidth = Integer.parseInt(properties.getProperty("testapp.minRectangleWidth",DEFAULT_MIN_RECTANGLE_WIDTH));
-            maxRectangleWidth = Integer.parseInt(properties.getProperty("testapp.maxRectangleWidth",DEFAULT_MAX_RECTANGLE_WIDTH));
-            minRectangleHeight = Integer.parseInt(properties.getProperty("testapp.minRectangleHeight",DEFAULT_MIN_RECTANGLE_HEIGHT));
-            maxRectangleHeight = Integer.parseInt(properties.getProperty("testapp.maxRectangleHeight",DEFAULT_MAX_RECTANGLE_HEIGHT));
+            imageExtensions = Arrays.asList(properties.getProperty("testapp.imageExtensions", DEFAULT_IMAGE_EXTENSIONS).split(" "));
+            minCircleRadius = Integer.parseInt(properties.getProperty("testapp.minCircleRadius", DEFAULT_MIN_CIRCLE_RADIUS));
+            maxCircleRadius = Integer.parseInt(properties.getProperty("testapp.maxCircleRadius", DEFAULT_MAX_CIRCLE_RADIUS));
+            minRectangleWidth = Integer.parseInt(properties.getProperty("testapp.minRectangleWidth", DEFAULT_MIN_RECTANGLE_WIDTH));
+            maxRectangleWidth = Integer.parseInt(properties.getProperty("testapp.maxRectangleWidth", DEFAULT_MAX_RECTANGLE_WIDTH));
+            minRectangleHeight = Integer.parseInt(properties.getProperty("testapp.minRectangleHeight", DEFAULT_MIN_RECTANGLE_HEIGHT));
+            maxRectangleHeight = Integer.parseInt(properties.getProperty("testapp.maxRectangleHeight", DEFAULT_MAX_RECTANGLE_HEIGHT));
             pathToDictionary = properties.getProperty("testapp.pathToDictionary", DEFAULT_PATH_TO_DICTIONARY);
-            numberTextLength = Integer.parseInt(properties.getProperty("testapp.numberTextLength",DEFAULT_NUMBERTEXT_LENGTH));
+            numberTextLength = Integer.parseInt(properties.getProperty("testapp.numberTextLength", DEFAULT_NUMBERTEXT_LENGTH));
             customPicturePath = properties.getProperty("testapp.customPicturePath", DEFAULT_CUSTOMPICTURE_PATH);
-            textLength = Integer.parseInt(properties.getProperty("testapp.textLength",DEFAULT_TEXT_LENGTH));
-            itemCount = Integer.parseInt(properties.getProperty("testapp.itemCount",DEFAULT_ITEM_COUNT));
-            frameBoundsX = Integer.parseInt(properties.getProperty("testapp.frameBoundsX",DEFAULT_FRAME_BOUNDS_X));
-            frameBoundsY = Integer.parseInt(properties.getProperty("testapp.frameBoundsY",DEFAULT_FRAME_BOUNDS_Y));
+            textLength = Integer.parseInt(properties.getProperty("testapp.textLength", DEFAULT_TEXT_LENGTH));
+            itemCount = Integer.parseInt(properties.getProperty("testapp.itemCount", DEFAULT_ITEM_COUNT));
+            frameBoundsX = Integer.parseInt(properties.getProperty("testapp.frameBoundsX", DEFAULT_FRAME_BOUNDS_X));
+            frameBoundsY = Integer.parseInt(properties.getProperty("testapp.frameBoundsY", DEFAULT_FRAME_BOUNDS_Y));
             frameBoundsWidth = Integer.parseInt(properties.getProperty("testapp.frameBoundsWidth", DEFAULT_FRAME_BOUNDS_WIDTH));
             frameBoundsHeight = Integer.parseInt(properties.getProperty("testapp.frameBoundsHeight", DEFAULT_FRAME_BOUNDS_HEIGHT));
-        } catch (Exception e) {
-            System.out.println("zdarog");
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    public void setDefaultProperties() {
+        imageExtensions = Arrays.asList(DEFAULT_IMAGE_EXTENSIONS.split(" "));
+        minCircleRadius = Integer.parseInt(DEFAULT_MIN_CIRCLE_RADIUS);
+        maxCircleRadius = Integer.parseInt(DEFAULT_MAX_CIRCLE_RADIUS);
+        minRectangleWidth = Integer.parseInt(DEFAULT_MIN_RECTANGLE_WIDTH);
+        maxRectangleWidth = Integer.parseInt(DEFAULT_MAX_RECTANGLE_WIDTH);
+        minRectangleHeight = Integer.parseInt(DEFAULT_MIN_RECTANGLE_HEIGHT);
+        maxRectangleHeight = Integer.parseInt(DEFAULT_MAX_RECTANGLE_HEIGHT);
+        pathToDictionary = DEFAULT_PATH_TO_DICTIONARY;
+        numberTextLength = Integer.parseInt(DEFAULT_NUMBERTEXT_LENGTH);
+        customPicturePath = DEFAULT_CUSTOMPICTURE_PATH;
+        textLength = Integer.parseInt(DEFAULT_TEXT_LENGTH);
+        itemCount = Integer.parseInt(DEFAULT_ITEM_COUNT);
+        frameBoundsX = Integer.parseInt(DEFAULT_FRAME_BOUNDS_X);
+        frameBoundsY = Integer.parseInt(DEFAULT_FRAME_BOUNDS_Y);
+        frameBoundsWidth = Integer.parseInt(DEFAULT_FRAME_BOUNDS_WIDTH);
+        frameBoundsHeight = Integer.parseInt(DEFAULT_FRAME_BOUNDS_HEIGHT);
     }
 
     public int getMinCircleRadius() {

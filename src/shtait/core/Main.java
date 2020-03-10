@@ -21,7 +21,11 @@ public class Main {
 
     public static void initializeComponents() {
         ConvertedProperties convertedProperties = new ConvertedProperties();
-        convertedProperties.getPropValues("config/testapp.properties");
+        try {
+            convertedProperties.getPropValues("config/testapp.properties");
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, "ERROR!\n" + e.toString(), "HALT!", JOptionPane.ERROR_MESSAGE);
+        }
         GeneratorService generatorService = new GeneratorService();
         generatorService.setGeneratorList(createGeneratorList(convertedProperties));
         JFrame f = new JFrame("Swing Paint Demo");
