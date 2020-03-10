@@ -21,12 +21,13 @@ public class Main {
 
     public static void initializeComponents() {
         ConvertedProperties convertedProperties = new ConvertedProperties();
-        convertedProperties.getPropValues();
+        convertedProperties.getPropValues("config/testapp.properties");
         GeneratorService generatorService = new GeneratorService();
         generatorService.setGeneratorList(createGeneratorList(convertedProperties));
         JFrame f = new JFrame("Swing Paint Demo");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setBounds(convertedProperties.frameBoundsX, convertedProperties.frameBoundsY, convertedProperties.frameBoundsWidth, convertedProperties.frameBoundsHeight);
+        int a = convertedProperties.getFrameBoundsHeight();
+        f.setBounds(convertedProperties.getFrameBoundsX(), convertedProperties.getFrameBoundsY(), convertedProperties.getFrameBoundsWidth(), convertedProperties.getFrameBoundsHeight());
         CustomPanel customPanel = new CustomPanel(generatorService, convertedProperties);
         f.add(customPanel);
         f.setVisible(true);
@@ -36,12 +37,12 @@ public class Main {
 
     public static List<Generator> createGeneratorList(ConvertedProperties convertedProperties) {
         List<Generator> generators = new ArrayList<>();
-        generators.add(new CircleGenerator(convertedProperties.minCircleRadius, convertedProperties.maxCircleRadius));
-        generators.add(new RectangleGenerator(convertedProperties.minRectangleWidth, convertedProperties.maxRectangleWidth, convertedProperties.minRectangleHeight, convertedProperties.maxRectangleHeight));
-        generators.add(new DictionaryTextGenerator(convertedProperties.pathToDictionary));
-        generators.add(new NumberTextGenerator(convertedProperties.numberTextLength));
-        generators.add(new TextGenerator(convertedProperties.textLength));
-        generators.add(new CustomPictureGenerator(convertedProperties.customPicturePath));
+        generators.add(new CircleGenerator(convertedProperties.getMinCircleRadius(), convertedProperties.getMaxCircleRadius()));
+        generators.add(new RectangleGenerator(convertedProperties.getMinRectangleWidth(), convertedProperties.getMaxRectangleWidth(), convertedProperties.getMinRectangleHeight(), convertedProperties.getMaxRectangleHeight()));
+        generators.add(new DictionaryTextGenerator(convertedProperties.getPathToDictionary()));
+        generators.add(new NumberTextGenerator(convertedProperties.getNumberTextLength()));
+        generators.add(new TextGenerator(convertedProperties.getTextLength()));
+        generators.add(new CustomPictureGenerator(convertedProperties.getCustomPicturePath()));
         return generators;
     }
 }
