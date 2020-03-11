@@ -28,14 +28,23 @@ public class ConvertedProperties {
     public String getString(String key, String defaultValue) {
         if (properties.getProperty(key) != null)
             return properties.getProperty(key);
-        else return defaultValue;
+        else {
+            System.out.println("Can't read property " + key + ". Using default value: " + defaultValue);
+            return defaultValue;
+        }
     }
 
     public int getInt(String key, int defaultValue) {
         try {
-            return Integer.parseInt(properties.getProperty(key));
+            if (Integer.parseInt(properties.getProperty(key)) != 0) {
+                return Integer.parseInt(properties.getProperty(key));
+            }
+            else{
+                System.out.println("Property "+key+"=0. Using default value: " + defaultValue);
+                return defaultValue;
+            }
         } catch (NumberFormatException e) {
-            System.out.println("Can't read property " + key + ". Cause:" + e + " Using default value: " + defaultValue);
+            System.out.println("We cannot parse integer from the string provided. Using default value: " + defaultValue);
             return defaultValue;
         }
     }
@@ -43,8 +52,8 @@ public class ConvertedProperties {
     public List<String> getArray(String key, List<String> defaultValue) {
         try {
             return Arrays.asList(properties.getProperty(key).split(" "));
-        } catch (Exception e) {
-            System.out.println("???");
+        } catch (NullPointerException e) {
+            System.out.println("Can't parse array from string provided. Using default value: " + defaultValue);
             return defaultValue;
         }
     }

@@ -35,7 +35,7 @@ public class CustomPictureGenerator implements Generator {
     }
 
     private File[] getFilesWithExt(List<String> extensions) {
-        File dir = new File("resources/Pictures");
+        File dir = new File(path);
         File[] extFiles = dir.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
                 String extension = name.substring(name.lastIndexOf('.') + 1);
