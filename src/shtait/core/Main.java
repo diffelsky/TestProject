@@ -6,6 +6,7 @@ import shtait.services.GeneratorService;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -30,8 +31,11 @@ public class Main {
         generatorService.setGeneratorList(createGeneratorList(convertedProperties));
         JFrame f = new JFrame("Swing Paint Demo");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        int a = convertedProperties.getFrameBoundsHeight();
-        f.setBounds(convertedProperties.getFrameBoundsX(), convertedProperties.getFrameBoundsY(), convertedProperties.getFrameBoundsWidth(), convertedProperties.getFrameBoundsHeight());
+        int frameX = convertedProperties.getInt("testapp.frameBoundsX", 64);
+        int frameY = convertedProperties.getInt("testapp.frameBoundsY", 64);
+        int frameWidth = convertedProperties.getInt("testapp.frameBoundsWidth", 640);
+        int frameHeight = convertedProperties.getInt("testapp.frameBoundsHeight", 480);
+        f.setBounds(frameX, frameY, frameWidth, frameHeight);
         CustomPanel customPanel = new CustomPanel(generatorService, convertedProperties);
         f.add(customPanel);
         f.setVisible(true);
@@ -40,13 +44,24 @@ public class Main {
     }
 
     public static List<Generator> createGeneratorList(ConvertedProperties convertedProperties) {
+        int minCircleRadius = convertedProperties.getInt("testapp.minCircleRadius", 100);
+        int maxCircleRadius = convertedProperties.getInt("testapp.maxCircleRadius", 110);
+        int minRectangleWidth = convertedProperties.getInt("testapp.minRectangleWidth", 100);
+        int maxRectangleWidth = convertedProperties.getInt("testapp.maxRectangleWidth", 110);
+        int minRectangleHeight = convertedProperties.getInt("testapp.minRectangleHeight", 200);
+        int maxRectangleHeight = convertedProperties.getInt("testapp.maxRectangleHeight", 210);
+        int numberTextLength = convertedProperties.getInt("testapp.numberTextLength", 20);
+        int textLength = convertedProperties.getInt("testapp.textLength", 20);
+        String customPicturePath = convertedProperties.getString("testapp.customPicturePath", "resources/Pictures");
+        String pathToDictionary = convertedProperties.getString("testapp.pathToDictionary", "resources/Dictionaries/dict.txt");
+        List<String> imageExtensions = convertedProperties.getArray("testapp.imageExtensions", Arrays.asList("jpg", "bmp"));
         List<Generator> generators = new ArrayList<>();
-        generators.add(new CircleGenerator(convertedProperties.getMinCircleRadius(), convertedProperties.getMaxCircleRadius()));
-        generators.add(new RectangleGenerator(convertedProperties.getMinRectangleWidth(), convertedProperties.getMaxRectangleWidth(), convertedProperties.getMinRectangleHeight(), convertedProperties.getMaxRectangleHeight()));
-        generators.add(new DictionaryTextGenerator(convertedProperties.getPathToDictionary()));
-        generators.add(new NumberTextGenerator(convertedProperties.getNumberTextLength()));
-        generators.add(new TextGenerator(convertedProperties.getTextLength()));
-        generators.add(new CustomPictureGenerator(convertedProperties.getCustomPicturePath()));
+        generators.add(new CircleGenerator(minCircleRadius, maxCircleRadius));
+        generators.add(new RectangleGenerator(minRectangleWidth, maxRectangleWidth, minRectangleHeight, maxRectangleHeight));
+        generators.add(new DictionaryTextGenerator(pathToDictionary));
+        generators.add(new NumberTextGenerator(numberTextLength));
+        generators.add(new TextGenerator(textLength));
+        generators.add(new CustomPictureGenerator(customPicturePath, imageExtensions));
         return generators;
     }
 }

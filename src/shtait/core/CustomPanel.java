@@ -26,7 +26,7 @@ public class CustomPanel extends JPanel {
 
     public CustomPanel(GeneratorService generatorService, ConvertedProperties convertedProperties) {
         this.generatorService = generatorService;
-        itemCount = convertedProperties.getItemCount();
+        itemCount = convertedProperties.getInt("testapp.itemCount", 20);
         setFocusable(true);
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key) {
