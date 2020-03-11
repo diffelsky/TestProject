@@ -36,15 +36,17 @@ public class ConvertedProperties {
 
     public int getInt(String key, int defaultValue) {
         try {
-            if (Integer.parseInt(properties.getProperty(key)) != 0) {
-                return Integer.parseInt(properties.getProperty(key));
-            }
-            else{
-                System.out.println("Property "+key+"=0. Using default value: " + defaultValue);
-                return defaultValue;
-            }
+            //if (Integer.parseInt(properties.getProperty(key)) != ) {
+            return Integer.parseInt(properties.getProperty(key));
+            //} else {
+            //System.out.println("Property " + key + "=0. Using default value: " + defaultValue);
+            //return defaultValue;
+            //}
         } catch (NumberFormatException e) {
             System.out.println("We cannot parse integer from the string provided. Using default value: " + defaultValue);
+            return defaultValue;
+        } catch (NullPointerException e) {
+            System.out.println("Cant parse from null. Using default value: " + defaultValue);
             return defaultValue;
         }
     }
