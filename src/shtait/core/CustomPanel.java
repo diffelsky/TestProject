@@ -1,6 +1,6 @@
 package shtait.core;
 
-import shtait.properties.ConvertedProperties;
+import shtait.services.ConfigService;
 import shtait.services.GeneratorService;
 
 import javax.imageio.ImageIO;
@@ -24,9 +24,9 @@ public class CustomPanel extends JPanel {
     private GeneratorService generatorService;
     private int itemCount;
 
-    public CustomPanel(GeneratorService generatorService, ConvertedProperties convertedProperties) {
+    public CustomPanel(GeneratorService generatorService, ConfigService configService) {
         this.generatorService = generatorService;
-        itemCount = convertedProperties.getInt("testapp.itemCount", 20);
+        itemCount = configService.getItemCount();
         setFocusable(true);
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key) {
