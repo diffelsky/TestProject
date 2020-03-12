@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Properties;
 
 public class ConvertedProperties {
-
-
     private Properties properties;
 
     public void getPropValues(String path) {
@@ -26,17 +24,17 @@ public class ConvertedProperties {
     }
 
     public String getString(String key, String defaultValue) {
-        if (properties.getProperty(key) != null)
-            return properties.getProperty(key);
-        else {
-            System.out.println("Can't read property " + key + ". Using default value: " + defaultValue);
-            return defaultValue;
-        }
+        return checkValuePresence(key, defaultValue).toString();
     }
 
     public int getInt(String key, int defaultValue) {
+        String valueString = properties.getProperty(key);
+
+        if (valueString == null)
+            return defaultValue;
+
         try {
-            return Integer.parseInt(NPEChecker(key, defaultValue).toString());
+            return Integer.parseInt(checkValuePresence(key, defaultValue).toString());
         } catch (NumberFormatException e) {
             System.out.println("We cannot parse integer from the string provided. Using default value: " + defaultValue);
             return defaultValue;
@@ -44,15 +42,15 @@ public class ConvertedProperties {
     }
 
     public List<String> getArray(String key, List<String> defaultValue) {
-        return Arrays.asList(NPEChecker(key, defaultValue).toString().split(" "));
+        return Arrays.asList(checkValuePresence(key, defaultValue).toString().split(" "));
     }
 
-    private Object NPEChecker(String key, Object defaultValue) {
-        String str = properties.getProperty(key)
-        if (str != null) {
-            return str;
+    private Object checkValuePresence(String key, Object defaultValue) {
+        String value = properties.getProperty(key);
+        if (value != null) {
+            return value;
         }
-        System.out.println("Can't parse from string provided. Using default value");
+        System.out.println(String.format("Value is not provided for key `{}`; using default value `{}`", key, defaultValue));
         return defaultValue;
     }
 }
