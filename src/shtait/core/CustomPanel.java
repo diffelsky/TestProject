@@ -1,5 +1,6 @@
 package shtait.core;
 
+import shtait.properties.ConvertedProperties;
 import shtait.services.GeneratorService;
 
 import javax.imageio.ImageIO;
@@ -18,14 +19,14 @@ import java.util.List;
 
 public class CustomPanel extends JPanel {
 
-    public static final int ITEM_COUNT = 20;
-
     private BufferedImage bufferedImage;
     private List<DrawableObject> drawableObjects;
     private GeneratorService generatorService;
+    private int itemCount;
 
-    public CustomPanel(GeneratorService generatorService) {
+    public CustomPanel(GeneratorService generatorService, ConvertedProperties convertedProperties) {
         this.generatorService = generatorService;
+        itemCount = convertedProperties.getInt("testapp.itemCount", 20);
         setFocusable(true);
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key) {
@@ -78,7 +79,7 @@ public class CustomPanel extends JPanel {
 
     public void init() {
         try {
-            drawableObjects = generatorService.generateObjects(generatorService.generateDrawables(CustomPanel.ITEM_COUNT), getWidth(), getHeight());
+            drawableObjects = generatorService.generateObjects(generatorService.generateDrawables(itemCount), getWidth(), getHeight());
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, "ERROR!\n" + e.toString(), "HALT!", JOptionPane.ERROR_MESSAGE);
         }

@@ -8,21 +8,22 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class CustomPictureGenerator implements Generator {
 
     private String path;
+    private List<String> extensions;
 
-    public CustomPictureGenerator(String path) {
+    public CustomPictureGenerator(String path, List<String> extensions) {
         this.path = path;
+        this.extensions = extensions;
     }
 
     @Override
     public Drawable generate() {
-        File[] pictures = getFilesWithExt(Arrays.asList("jpg", "png"));
+        File[] pictures = getFilesWithExt(extensions);
         Random r = new Random();
         BufferedImage img = null;
         try {
@@ -34,7 +35,7 @@ public class CustomPictureGenerator implements Generator {
     }
 
     private File[] getFilesWithExt(List<String> extensions) {
-        File dir = new File("resources/Pictures");
+        File dir = new File(path);
         File[] extFiles = dir.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
                 String extension = name.substring(name.lastIndexOf('.') + 1);
