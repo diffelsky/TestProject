@@ -1,5 +1,9 @@
 package shtait.core;
 
+
+import org.apache.log4j.PropertyConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import shtait.generators.*;
 import shtait.properties.ConvertedProperties;
 import shtait.services.ConfigService;
@@ -11,21 +15,30 @@ import java.util.List;
 
 public class Main {
 
+    private static final Logger LOG = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                initializeComponents();
+                try {
+                    initializeComponents();
+                    LOG.info("Successfully initialized!");
+                } catch (Exception e) {
+                    LOG.error("Fatal error while initializing program. " + e);
+                }
             }
         });
     }
 
     public static void initializeComponents() {
+        PropertyConfigurator.configure("log4j.properties");
         ConvertedProperties convertedProperties = new ConvertedProperties();
         try {
             convertedProperties.getPropValues("config/testapp.properties");
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, "ERROR!\n" + e.toString(), "HALT!", JOptionPane.ERROR_MESSAGE);
+            LOG.warn("An exception occured while converting properties. " + e.toString());
         }
         ConfigService configService = new ConfigService(convertedProperties);
         GeneratorService generatorService = new GeneratorService();

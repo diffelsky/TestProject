@@ -1,5 +1,8 @@
 package shtait.properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +12,7 @@ import java.util.Properties;
 
 public class ConvertedProperties {
     private Properties properties;
+    private static final Logger LOG = LoggerFactory.getLogger(ConvertedProperties.class);
 
     public void getPropValues(String path) {
         properties = new Properties();
@@ -19,6 +23,7 @@ public class ConvertedProperties {
                 properties.load(inputStream);
             }
         } catch (IOException e) {
+            LOG.warn("Error while loading properties from InputStream. " +e);
             throw new RuntimeException(e);
         }
     }
@@ -28,15 +33,10 @@ public class ConvertedProperties {
     }
 
     public int getInt(String key, int defaultValue) {
-        String valueString = properties.getProperty(key);
-
-        if (valueString == null)
-            return defaultValue;
-
         try {
             return Integer.parseInt(checkValuePresence(key, defaultValue).toString());
         } catch (NumberFormatException e) {
-            System.out.println("We cannot parse integer from the string provided. Using default value: " + defaultValue);
+            LOG.info("We cannot parse integer from the string provided. Using default value: " + defaultValue);
             return defaultValue;
         }
     }
@@ -50,7 +50,7 @@ public class ConvertedProperties {
         if (value != null) {
             return value;
         }
-        System.out.println(String.format("Value is not provided for key `{}`; using default value `{}`", key, defaultValue));
+        LOG.info(String.format("Value is not provided for key '%s'; using default value '%s'", key, defaultValue));
         return defaultValue;
     }
 }
