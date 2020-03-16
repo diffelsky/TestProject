@@ -88,7 +88,7 @@ public class CustomPanel extends JPanel {
             LOG.debug("Drawables successfully generated");
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, "ERROR!\n" + e.toString(), "HALT!", JOptionPane.ERROR_MESSAGE);
-            LOG.warn("Error while generating drawableObjects " + e.getMessage());
+            LOG.warn("Error while generating drawableObjects: " + e.getMessage());
         }
     }
 }
