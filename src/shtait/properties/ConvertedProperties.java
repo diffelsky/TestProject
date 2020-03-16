@@ -36,7 +36,7 @@ public class ConvertedProperties {
         try {
             return Integer.parseInt(checkValuePresence(key, defaultValue).toString());
         } catch (NumberFormatException e) {
-            LOG.warn("Cannot parse integer from the string provided. Using default value: " + defaultValue);
+            LOG.warn("Cannot parse integer from the string provided. Using default value: {}", defaultValue);
             return defaultValue;
         }
     }
@@ -50,7 +50,7 @@ public class ConvertedProperties {
         if (value != null) {
             return value;
         }
-        LOG.warn(String.format("Value is not provided for key '%s'; using default value '%s'", key, defaultValue));
+        LOG.warn("Value is not provided for key {} ; using default value: {} ", key, defaultValue);
         return defaultValue;
     }
 }

@@ -25,7 +25,7 @@ public class Main {
                     initializeComponents();
                     LOG.info("Successfully initialized!");
                 } catch (Exception e) {
-                    LOG.error("Fatal error while initializing program. " + e);
+                    LOG.error("Fatal error while initializing program. " + e.getMessage());
                 }
             }
         });
