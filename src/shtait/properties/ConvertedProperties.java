@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Properties;
 
 public class ConvertedProperties {
-    private Properties properties;
     private static final Logger LOG = LoggerFactory.getLogger(ConvertedProperties.class);
+    private Properties properties;
 
     public void getPropValues(String path) {
         properties = new Properties();
@@ -23,7 +23,7 @@ public class ConvertedProperties {
                 properties.load(inputStream);
             }
         } catch (IOException e) {
-            LOG.warn("Error while loading properties from InputStream. " +e);
+            LOG.warn("Error while loading properties from InputStream. " + e);
             throw new RuntimeException(e);
         }
     }
@@ -36,7 +36,7 @@ public class ConvertedProperties {
         try {
             return Integer.parseInt(checkValuePresence(key, defaultValue).toString());
         } catch (NumberFormatException e) {
-            LOG.info("We cannot parse integer from the string provided. Using default value: " + defaultValue);
+            LOG.warn("Cannot parse integer from the string provided. Using default value: " + defaultValue);
             return defaultValue;
         }
     }
@@ -50,7 +50,7 @@ public class ConvertedProperties {
         if (value != null) {
             return value;
         }
-        LOG.info(String.format("Value is not provided for key '%s'; using default value '%s'", key, defaultValue));
+        LOG.warn(String.format("Value is not provided for key '%s'; using default value '%s'", key, defaultValue));
         return defaultValue;
     }
 }

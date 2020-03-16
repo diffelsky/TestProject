@@ -1,7 +1,5 @@
 package shtait.core;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import shtait.services.ConfigService;
@@ -31,7 +29,6 @@ public class CustomPanel extends JPanel {
     private String pathToScreenshots;
 
     public CustomPanel(GeneratorService generatorService, ConfigService configService) {
-        PropertyConfigurator.configure("log4j.properties");
         this.generatorService = generatorService;
         itemCount = configService.getItemCount();
         pathToScreenshots = configService.getPathToScreenshots();
@@ -66,7 +63,7 @@ public class CustomPanel extends JPanel {
             String fileName = new SimpleDateFormat("'scr-'yyyy-MM-dd-HH-mm-ss-SSS'.png'").format(new Date());
             ImageIO.write(bufferedImage, "png", new File(pathToScreenshots + fileName));
         } catch (IOException e) {
-            LOG.error("Error while saving image. "+e);
+            LOG.error("Error while saving image: ", e);
         }
     }
 
@@ -91,7 +88,7 @@ public class CustomPanel extends JPanel {
             LOG.debug("Drawables successfully generated");
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, "ERROR!\n" + e.toString(), "HALT!", JOptionPane.ERROR_MESSAGE);
-            LOG.warn("Error while generating drawableObjects "+e.getMessage());
+            LOG.warn("Error while generating drawableObjects " + e.getMessage());
         }
     }
 }
