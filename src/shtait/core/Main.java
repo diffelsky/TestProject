@@ -37,7 +37,7 @@ public class Main {
         try {
             convertedProperties.getPropValues("config/testapp.properties");
         } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(null, "ERROR!\n" + e.toString(), "HALT!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR!\n" + e.getMessage(), "HALT!", JOptionPane.ERROR_MESSAGE);
             LOG.warn("An exception occured while converting properties. " + e.getMessage());
         }
         ConfigService configService = new ConfigService(convertedProperties);
