@@ -23,6 +23,7 @@ public class ConfigService {
     public static final int DEFAULT_FRAME_BOUNDS_Y = 64;
     public static final int DEFAULT_FRAME_BOUNDS_WIDTH = 640;
     public static final int DEFAULT_FRAME_BOUNDS_HEIGHT = 480;
+    public static final String DEFAULT_PATH_TO_SCREENSHOTS = "resources/Screenshots/";
 
     private ConvertedProperties convertedProperties;
 
@@ -92,5 +93,8 @@ public class ConfigService {
 
     public int getFrameBoundsHeight() {
         return convertedProperties.getInt("testapp.frameBoundsHeight", DEFAULT_FRAME_BOUNDS_HEIGHT);
+    }
+    public String getPathToScreenshots() {
+        return convertedProperties.getString("testapp.pathToScreenshots", DEFAULT_PATH_TO_SCREENSHOTS);
     }
 }

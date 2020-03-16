@@ -5,3 +5,4 @@ out/*
 .idea/*
 TestProject.iml
 resources/Screenshots/*
+logs/*

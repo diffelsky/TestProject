@@ -1,5 +1,7 @@
 package shtait.generators;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import shtait.drawableitems.Drawable;
 import shtait.drawableitems.texts.DictionaryText;
 
@@ -13,6 +15,7 @@ import java.util.Random;
 
 public class DictionaryTextGenerator implements Generator {
 
+    private static final Logger LOG = LoggerFactory.getLogger(DictionaryTextGenerator.class);
     private String path;
 
     public DictionaryTextGenerator(String path) {
@@ -35,6 +38,7 @@ public class DictionaryTextGenerator implements Generator {
             Random r = new Random();
             dictionaryText = new DictionaryText(output.get(r.nextInt(output.size())));
         } catch (IllegalArgumentException | IOException e) {
+            LOG.error("Error while generating Dictionary. ", e);
             throw new RuntimeException(e);
         }
         return dictionaryText;

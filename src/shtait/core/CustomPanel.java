@@ -1,5 +1,7 @@
 package shtait.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import shtait.services.ConfigService;
 import shtait.services.GeneratorService;
 
@@ -19,14 +21,17 @@ import java.util.List;
 
 public class CustomPanel extends JPanel {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CustomPanel.class);
     private BufferedImage bufferedImage;
     private List<DrawableObject> drawableObjects;
     private GeneratorService generatorService;
     private int itemCount;
+    private String pathToScreenshots;
 
     public CustomPanel(GeneratorService generatorService, ConfigService configService) {
         this.generatorService = generatorService;
         itemCount = configService.getItemCount();
+        pathToScreenshots = configService.getPathToScreenshots();
         setFocusable(true);
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key) {
@@ -56,9 +61,9 @@ public class CustomPanel extends JPanel {
     public void saveImage() {
         try {
             String fileName = new SimpleDateFormat("'scr-'yyyy-MM-dd-HH-mm-ss-SSS'.png'").format(new Date());
-            ImageIO.write(bufferedImage, "png", new File("resources/Screenshots/" + fileName));
+            ImageIO.write(bufferedImage, "png", new File(pathToScreenshots + fileName));
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("Error while saving image: ", e);
         }
     }
 
@@ -80,8 +85,10 @@ public class CustomPanel extends JPanel {
     public void init() {
         try {
             drawableObjects = generatorService.generateObjects(generatorService.generateDrawables(itemCount), getWidth(), getHeight());
+            LOG.debug("Drawables successfully generated");
         } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(null, "ERROR!\n" + e.toString(), "HALT!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR!\n" + e.getMessage(), "HALT!", JOptionPane.ERROR_MESSAGE);
+            LOG.warn("Error while generating drawableObjects: " + e.getMessage());
         }
     }
 }
