@@ -2,6 +2,7 @@ package shtait.generators;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import shtait.core.GeneratorException;
 import shtait.drawableitems.CustomPicture;
 import shtait.drawableitems.Drawable;
 
@@ -33,7 +34,7 @@ public class CustomPictureGenerator implements Generator {
             img = ImageIO.read(new File(String.valueOf(pictures[(r.nextInt(pictures.length))])));
         } catch (IllegalArgumentException | IOException e) {
             LOG.error("Error while generating CustomImage. ", e);
-            throw new RuntimeException(e);
+            throw new GeneratorException("An error occurred during generation", e);
         }
         return new CustomPicture(img);
     }
