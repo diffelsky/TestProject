@@ -2,6 +2,7 @@ package shtait.generators;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import shtait.core.GeneratorException;
 import shtait.drawableitems.Drawable;
 import shtait.drawableitems.texts.DictionaryText;
 
@@ -39,7 +40,7 @@ public class DictionaryTextGenerator implements Generator {
             dictionaryText = new DictionaryText(output.get(r.nextInt(output.size())));
         } catch (IllegalArgumentException | IOException e) {
             LOG.error("Error while generating Dictionary. ", e);
-            throw new RuntimeException(e);
+            throw new GeneratorException("Error while generating " + getClass(), e);
         }
         return dictionaryText;
     }

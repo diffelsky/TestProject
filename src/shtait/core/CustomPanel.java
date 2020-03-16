@@ -86,7 +86,7 @@ public class CustomPanel extends JPanel {
         try {
             drawableObjects = generatorService.generateObjects(generatorService.generateDrawables(itemCount), getWidth(), getHeight());
             LOG.debug("Drawables successfully generated");
-        } catch (RuntimeException e) {
+        } catch (GeneratorException e) {
             JOptionPane.showMessageDialog(null, "ERROR!\n" + e.getMessage(), "HALT!", JOptionPane.ERROR_MESSAGE);
             LOG.warn("Error while generating drawableObjects: " + e.getMessage());
         }
