@@ -38,7 +38,7 @@ public class DictionaryTextGenerator implements Generator {
             Random r = new Random();
             dictionaryText = new DictionaryText(output.get(r.nextInt(output.size())));
         } catch (IllegalArgumentException | IOException e) {
-            LOG.error("Error while generating Dictionary. " + e);
+            LOG.error("Error while generating Dictionary. ", e);
             throw new RuntimeException(e);
         }
         return dictionaryText;

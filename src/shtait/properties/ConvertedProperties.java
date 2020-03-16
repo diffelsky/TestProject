@@ -23,7 +23,7 @@ public class ConvertedProperties {
                 properties.load(inputStream);
             }
         } catch (IOException e) {
-            LOG.warn("Error while loading properties from InputStream. " + e);
+            LOG.warn("Error while loading properties from InputStream. " + e.getMessage());
             throw new RuntimeException(e);
         }
     }
