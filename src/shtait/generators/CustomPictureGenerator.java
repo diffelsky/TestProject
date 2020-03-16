@@ -34,7 +34,7 @@ public class CustomPictureGenerator implements Generator {
             img = ImageIO.read(new File(String.valueOf(pictures[(r.nextInt(pictures.length))])));
         } catch (IllegalArgumentException | IOException e) {
             LOG.error("Error while generating CustomImage. ", e);
-            throw new GeneratorException("Error while generating " + getClass(), e);
+            throw new GeneratorException("An error occurred during generation", e);
         }
         return new CustomPicture(img);
     }
