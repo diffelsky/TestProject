@@ -29,24 +29,43 @@ public class CustomPictureGenerator implements Generator {
     public Drawable generate() {
         File[] pictures = getFilesWithExt(extensions);
         Random r = new Random();
-        BufferedImage img = null;
+        BufferedImage img;
         try {
             img = ImageIO.read(new File(String.valueOf(pictures[(r.nextInt(pictures.length))])));
         } catch (IllegalArgumentException | IOException e) {
             LOG.error("Error while generating CustomImage. ", e);
             throw new GeneratorException("An error occurred during generation", e);
+        } catch (NullPointerException e) {
+            LOG.error("No pictures with such extensions in directory provided");
+            throw new GeneratorException("An error occurred during generation", e);
         }
+
         return new CustomPicture(img);
     }
 
     private File[] getFilesWithExt(List<String> extensions) {
-        File dir = new File(path);
-        File[] extFiles = dir.listFiles(new FilenameFilter() {
-            public boolean accept(File dir, String name) {
-                String extension = name.substring(name.lastIndexOf('.') + 1);
-                return extensions.contains(extension);
-            }
-        });
+        File dir;
+        File[] extFiles = null;
+        try {
+            dir = new File(path);
+            extFiles = dir.listFiles(new FilenameFilter() {
+                public boolean accept(File dir, String name) {
+                    String extension = name.substring(name.lastIndexOf('.') + 1);
+                    return extensions.contains(extension);
+                }
+            });
+        } catch (NullPointerException e) {
+            LOG.error("Incorrect path and/or extensions list");
+            throw new GeneratorException("An error occurred during generation", e);
+        }
         return extFiles;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public List<String> getExtensions() {
+        return extensions;
     }
 }

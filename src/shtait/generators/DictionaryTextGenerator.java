@@ -26,12 +26,13 @@ public class DictionaryTextGenerator implements Generator {
     @Override
     public Drawable generate() {
 
-        File file = new File(path);
+        File file;
         String line;
         List<String> output = new ArrayList<>();
         FileReader fileReader;
         DictionaryText dictionaryText;
         try {
+            file = new File(path);
             fileReader = new FileReader(file);
             BufferedReader br = new BufferedReader(fileReader);
             while ((line = br.readLine()) != null)
@@ -41,8 +42,15 @@ public class DictionaryTextGenerator implements Generator {
         } catch (IllegalArgumentException | IOException e) {
             LOG.error("Error while generating Dictionary. ", e);
             throw new GeneratorException("An error occurred during generation", e);
+        } catch (NullPointerException e) {
+            LOG.error("Incorrect path", e);
+            throw new GeneratorException("An error occurred during generation", e);
         }
         return dictionaryText;
+    }
+
+    public String getPath() {
+        return path;
     }
 }
 
