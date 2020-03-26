@@ -1,6 +1,7 @@
 package shtait.test;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import shtait.core.DrawableObject;
 import shtait.drawableitems.Drawable;
@@ -12,14 +13,24 @@ import java.util.List;
 import static shtait.core.Utils.fillDrawableList;
 import static shtait.core.Utils.fillDrawableObjectList;
 
-
 public class UtilTest {
-    @Test
-    public void fillDrawableListTest() {
-        final int count = 5;
-        List<Generator> generators = new ArrayList<>();
+    public int count;
+    public int width;
+    public int height;
+    List<Generator> generators;
+
+    @Before
+    public void init() {
+        count = 5;
+        width = 100;
+        height = 200;
+        generators = new ArrayList<>();
         generators.add(() -> (gr, x, y) -> {
         });
+    }
+
+    @Test
+    public void fillDrawableListTest() {
         List<Drawable> drawableList = fillDrawableList(count, generators);
         Assert.assertEquals(count, drawableList.size());
         for (Drawable drawable : drawableList) {
@@ -29,12 +40,6 @@ public class UtilTest {
 
     @Test
     public void fillDrawableObjectListTest() {
-        final int count = 5;
-        final int width = 100;
-        final int height = 200;
-        List<Generator> generators = new ArrayList<>();
-        generators.add(() -> (gr, x, y) -> {
-        });
         List<DrawableObject> drawableObject = fillDrawableObjectList(fillDrawableList(count, generators), 100, 200);
         Assert.assertEquals(count, drawableObject.size());
         for (DrawableObject object : drawableObject) {

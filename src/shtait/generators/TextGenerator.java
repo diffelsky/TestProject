@@ -12,6 +12,8 @@ public class TextGenerator implements Generator {
     private int length;
 
     public TextGenerator(int length) {
+        if (length <= 0)
+            throw new IllegalArgumentException("Invalid arguments: Text length cant be negative or zero");
         this.length = length;
     }
 
@@ -23,5 +25,9 @@ public class TextGenerator implements Generator {
             text.append(TEXT_ALPHABET.charAt(r.nextInt(TEXT_ALPHABET.length())));
         }
         return new Text(text.toString());
+    }
+
+    public int getLength() {
+        return length;
     }
 }
