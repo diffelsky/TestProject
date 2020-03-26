@@ -3,6 +3,7 @@ package shtait.generators;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import shtait.core.GeneratorException;
+import shtait.core.Utils;
 import shtait.drawableitems.Drawable;
 import shtait.drawableitems.texts.DictionaryText;
 
@@ -25,24 +26,28 @@ public class DictionaryTextGenerator implements Generator {
 
     @Override
     public Drawable generate() {
-
-        File file = new File(path);
-        String line;
-        List<String> output = new ArrayList<>();
-        FileReader fileReader;
-        DictionaryText dictionaryText;
         try {
-            fileReader = new FileReader(file);
-            BufferedReader br = new BufferedReader(fileReader);
-            while ((line = br.readLine()) != null)
-                output.add(line);
-            Random r = new Random();
-            dictionaryText = new DictionaryText(output.get(r.nextInt(output.size())));
+            List<String> output = new ArrayList<>();
+            String line;
+            if (Utils.isEmptyOrNull(path)) {
+                LOG.warn("Incorrect path");
+                throw new IllegalArgumentException();
+            } else {
+                File file = new File(path);
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                while ((line = br.readLine()) != null)
+                    output.add(line);
+                Random r = new Random();
+                return new DictionaryText(output.get(r.nextInt(output.size())));
+            }
         } catch (IllegalArgumentException | IOException e) {
             LOG.error("Error while generating Dictionary. ", e);
             throw new GeneratorException("An error occurred during generation", e);
         }
-        return dictionaryText;
+    }
+
+    public String getPath() {
+        return path;
     }
 }
 

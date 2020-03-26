@@ -27,4 +27,12 @@ public class Utils {
         }
         return objectList;
     }
+
+    public static boolean isEmptyOrNull(String s) {
+        return s == null || s.isEmpty();
+    }
+
+    public static boolean isEmptyOrNull(List<String> s) {
+        return s == null || s.isEmpty();
+    }
 }

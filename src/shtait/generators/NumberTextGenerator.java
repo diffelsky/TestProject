@@ -11,6 +11,8 @@ public class NumberTextGenerator implements Generator {
     private int length;
 
     public NumberTextGenerator(int length) {
+        if (length <= 0)
+            throw new IllegalArgumentException("Invalid arguments: NumberText length cant be negative or zero");
         this.length = length;
     }
 
@@ -21,5 +23,9 @@ public class NumberTextGenerator implements Generator {
         for (int i = 0; i < length; i++)
             stringInteger.append(rnd.nextInt(10));
         return new NumberText(new BigInteger(stringInteger.toString()));
+    }
+
+    public int getLength() {
+        return length;
     }
 }
